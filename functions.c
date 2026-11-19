@@ -1,0 +1,34 @@
+#include <stdio.h> 
+#include <string.h>
+#include <openssl/evp.h>
+
+#include "functions.h"
+
+byte_array convert_hex_to_byte(char *hex) {
+   // number of characters in string and number of bytes (two characters form one byte (8 bits)
+   int number_of_chars = strlen(hex);
+   int number_of_bytes = number_of_chars/2;
+
+   byte_array b;
+   b.data = malloc(number_of_bytes);
+   b.length = number_of_chars/2;
+
+   // convert string (two charactes at the time) into bytes
+   for (int i = 0; i < b.length; i++) {
+      sscanf(&hex[2 * i], "%2hhx", &b.data[i]);
+   }
+
+   return b;
+}
+
+char *encode_bytes_into_b64(byte_array b) {
+   int output_len = 4 * ((b.length + 2) / 3); //counting encoded string length based on input length
+   
+   // encode bytes into base64
+   unsigned char *output = malloc(output_len);
+   int len = EVP_EncodeBlock(output , b.data, b.length); // (output, input, number of bytes) returns length of the ouput
+
+   output[len] = '\0'; // add string end... at the end
+
+   return output;
+}
