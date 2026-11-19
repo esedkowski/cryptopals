@@ -27,4 +27,5 @@ const float LETTERS_FREQ[26] = {
    0.00150,
    0.01974,
    0.00074
+   // https://web.archive.org/web/20080708193159/http://pages.central.edu/emp/LintonT/classes/spring01/cryptography/letterfreq.html
 };
