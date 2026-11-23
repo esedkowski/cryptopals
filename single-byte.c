@@ -16,17 +16,22 @@ int main(int argc, char *argv[]) {
    byte_array b = convert_hex_to_byte(hex);
 
    decoded result;
+   byte_array key;
+   key.data = malloc(1);
+   key.length = 1;
 
-   for (char key = '0'; key <='~'; key++) {
+   for (char k = '0'; k <='~'; k++) {
+      key.data[0] = k;
       result = decode_using_key(b, key);
       if (result.score <= 0.9) {
-         printf("%c %f \n", result.key, result.score);
+         printf("%c %f \n", result.key[0], result.score);
          printf("%s\n", result.answer);
       }
       free(result.answer);
    }
 
    free(b.data);
+   free(key.data);
    
    return 0;
 }

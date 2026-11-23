@@ -34,16 +34,18 @@ char *encode_bytes_into_b64(byte_array b) {
    return output;
 }
 
-decoded decode_using_key(byte_array b, char key) {
+decoded decode_using_key(byte_array b, byte_array key) {
    char *answer = malloc(b.length + 1);
    char letter;
    int counter = 0;
    char table[26] = {0};
    float score = 0;
    float new_score;
+   int k;
 
    for (int i = 0; i < b.length; i++) {
-      letter = b.data[i] ^ key;
+      k = i % key.length;
+      letter = b.data[i] ^ key.data[k];
       answer[i] = letter;
 
       if (letter < 32 || letter > 126) {
@@ -75,7 +77,7 @@ decoded decode_using_key(byte_array b, char key) {
    decoded result;
    answer[b.length] = '\0';
    result.answer = answer;
-   result.key = key;
+   result.key = key.data;
    result.score = score;
 
    return result;

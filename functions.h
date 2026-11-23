@@ -8,13 +8,13 @@ typedef struct {
 
 typedef struct {
    char *answer;
-   char key;
+   char *key;
    float score;
 } decoded;
 
 byte_array convert_hex_to_byte(char *hex);
 char *encode_bytes_into_b64(byte_array b);
-decoded decode_using_key(byte_array b, char key);
+decoded decode_using_key(byte_array b, byte_array key);
 
 
 #endif
