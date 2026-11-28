@@ -1,12 +1,14 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-typedef struct {
+typedef struct
+{
    unsigned char *data;
    int length;
 } byte_array;
 
-typedef struct {
+typedef struct
+{
    char *answer;
    char *key;
    float score;
@@ -15,6 +17,6 @@ typedef struct {
 byte_array convert_hex_to_byte(char *hex);
 char *encode_bytes_into_b64(byte_array b);
 decoded decode_using_key(byte_array b, byte_array key);
-
+int count_hamming_distance(char *str1, char *str2);
 
 #endif

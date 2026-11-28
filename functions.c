@@ -83,3 +83,33 @@ decoded decode_using_key(byte_array b, byte_array key) {
    return result;
 }
 
+int count_hamming_distance(char *str1, char *str2) {
+   // checking if string length match
+   if (strlen(str1) != strlen(str2)) {
+      printf("strings have different length!!!");
+      return -1;
+   }
+   
+   int len = strlen(str1);
+
+   int hamming_distance = 0;
+   int xor_difference = 0;
+
+   for (int l = 0; l <= len; l++) { // checking one char at the time
+      xor_difference = str1[l] ^ str2[l]; // if coresponding pair of bits match returns 0 at their position, if not returns 1
+      // counts every 1 in byte. Based on dec to bin conversion alghoritm
+      for (int i = 0; i < 8; i++) {
+         if (xor_difference % 2 == 1) {
+            hamming_distance++;
+         }
+         xor_difference = xor_difference / 2;
+      }
+
+      // eg.
+      // char1:  00110010 char2: 00110000 -> xor_difference: 00000010 (2 in dec)
+      // 2 % 2 = 0 -> no action -> 2 / 2 = 1 -> 1 % 2 = 1 -> hamming_distance++ -> 1/2 = 0.5 ~ 0 -> no action -> ... -> return hamming_distance=1
+   }
+
+
+   return hamming_distance;
+}
